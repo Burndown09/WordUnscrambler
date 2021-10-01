@@ -11,15 +11,14 @@ namespace WordUnscrambler
         private static readonly FileReader _fileReader = new FileReader();
         private static readonly WordMatcher _wordMatcher = new WordMatcher();
 
-        static void Main(string[] args)
-        {
+        static void Main(string[] args){
 
             bool repeat = false;
             do
             {
                 try
                 {
-                    repeat = false;
+                    
 
 
                     Console.WriteLine("Enter scrambled word(s) manually or as a file: F - file / M - manual");

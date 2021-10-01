@@ -12,8 +12,16 @@ namespace WordUnscrambler
         public string[] Read(string filename)
         {
             // Implement this.
-
-            return null;
+            string filepath = filename;
+            StreamReader reader = new StreamReader(filepath);
+            
+            List<string> listOfWords = new List<string>;
+            while(reader.Peek() >= 0) {
+            listOfWords.Append(reader.ReadLine())
+            
+            
+            }
+            return listOfWords;
 
         }
     }
