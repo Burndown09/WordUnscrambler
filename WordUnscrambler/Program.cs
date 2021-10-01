@@ -139,6 +139,14 @@ namespace WordUnscrambler
 
             //call a word matcher method to get a list of structs of matched words.
             List<MatchedWord> matchedWords = _wordMatcher.Match(scrambledWords, wordList);
+
+            foreach(var matchedWord in matchedWords){ 
+                    int i = 0;
+                Console.WriteLine("the scrambled word" + matchedWords[i].ScrambledWord + "matched with" + 
+                    matchedWords[i].Word);
+                   i++;
+            }
+
         }
     }
 }
