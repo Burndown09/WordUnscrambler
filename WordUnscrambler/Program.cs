@@ -12,7 +12,7 @@ namespace WordUnscrambler
         private static readonly WordMatcher _wordMatcher = new WordMatcher();
 
         static void Main(string[] args){
-
+            
             bool repeat = false;
             do
             {
@@ -21,23 +21,23 @@ namespace WordUnscrambler
                     
 
 
-                    Console.WriteLine("Enter scrambled word(s) manually or as a file: F - file / M - manual");
+                    Console.WriteLine(Constants.Input);
 
-                    String option = Console.ReadLine() ?? throw new ArgumentNullException("String is empty");
+                    String option = Console.ReadLine() ?? throw new ArgumentNullException(Constants.EmptError);
 
 
                     switch (option.ToUpper())
                     {
                         case "F":
-                            Console.WriteLine("Enter full path including the file name: ");
+                            Console.WriteLine(Constants.FileName);
                             ExecuteScrambledWordsInFileScenario();
                             break;
                         case "M":
-                            Console.WriteLine("Enter word(s) manually (separated by commas if multiple): ");
+                            Console.WriteLine(Constants.InstructionsForInput);
                             ExecuteScrambledWordsManualEntryScenario();
                             break;
                         default:
-                            Console.WriteLine("The entered option was not recognized.");
+                            Console.WriteLine(Constants.InputError);
                             repeat = true;
                             break;
                     }
@@ -49,13 +49,13 @@ namespace WordUnscrambler
 
                 catch (ArgumentNullException ex)
                 {
-                    Console.WriteLine("String is empty" + ex.Message);
+                    Console.WriteLine(Constants.EmptError + ex.Message);
                     repeat = true;
 
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("The program will be terminated." + ex.Message);
+                    Console.WriteLine(Constants.Terminate + ex.Message);
 
                 }
             } while (repeat);
@@ -71,11 +71,11 @@ namespace WordUnscrambler
         private static void ExecuteScrambledWordsManualEntryScenario()
         {
             List<string> listOfScrambledWords = new List<string>();
-            Console.WriteLine("Input '/done' when you have completed your list of scrambled words");
+            Console.WriteLine(Constants.InstructionsForInput2);
             string finished = "";
             do
             {
-                Console.WriteLine("Please input your word");
+                Console.WriteLine(Constants.Prompt);
 
                 string userInput = Console.ReadLine();
 
@@ -97,12 +97,12 @@ namespace WordUnscrambler
             
             List<string> listOfWords = new List<string>();
             
-            Console.WriteLine("Input '/done' when you have completed your list of none scrambled words");
+            Console.WriteLine(Constants.InstructionsForInput3);
             string done = "";
             
             do
             {
-                Console.WriteLine("Please input your word");
+                Console.WriteLine(Constants.Prompt);
                 string input = Console.ReadLine();
                 if (input.Equals("/done"))
                 {
@@ -127,10 +127,17 @@ namespace WordUnscrambler
         private static void DisplayMatchedUnscrambledWordsFileScenerio(string[] scrambledWords)
         {
             //read the list of words from the system file. 
-            string[] wordList = _fileReader.Read("wordlist.txt");
+            string[] wordList = _fileReader.Read(Constants.WordList);
 
             //call a word matcher method to get a list of structs of matched words.
             List<MatchedWord> matchedWords = _wordMatcher.Match(scrambledWords, wordList);
+            foreach (var matchedWord in matchedWords)
+            {
+                int i = 0;
+                Console.WriteLine("the scrambled word" + matchedWords[i].ScrambledWord + "matched with" +
+                    matchedWords[i].Word);
+                i++;
+            }
         }
 
         private static void DisplayMatchedUnscrambledWordsManualScenerio(string[] scrambledWords, string[] wordList)

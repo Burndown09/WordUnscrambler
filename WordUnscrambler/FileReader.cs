@@ -15,13 +15,13 @@ namespace WordUnscrambler
             string filepath = filename;
             StreamReader reader = new StreamReader(filepath);
             
-            List<string> listOfWords = new List<string>;
+            List<string> listOfWords = new List<string>();
             while(reader.Peek() >= 0) {
-            listOfWords.Append(reader.ReadLine())
+                listOfWords.Append(reader.ReadLine());
             
             
             }
-            return listOfWords;
+            return listOfWords.ToArray();
 
         }
     }
